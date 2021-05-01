@@ -1,0 +1,3 @@
+#!/bin/bash
+
+$MODELS_DSSAT_DIR/dscsm047 $1 $2
