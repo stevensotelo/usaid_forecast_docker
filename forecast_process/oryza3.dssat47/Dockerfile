@@ -6,6 +6,7 @@ LABEL maintainer="stevenbetancurt@hotmail.com"
 WORKDIR /forecast
 
 COPY ./models /forecast/models
+COPY ./test /forecast/test
 
 ENV MODELS_DIR=/forecast/models
 ENV MODELS_TMP=/forecast/tmp
@@ -43,9 +44,9 @@ RUN cd ${MODELS_DIR} \
     && unzip ./ORYZAv3_lin.zip \
     && mv ./Linux ./${MODELS_ORYZA_MODEL} \
     && chmod +x ${MODELS_DIR}/oryza \
-    && mv ./ORYZAv3_lin.zip ${MODELS_TMP}/ 
-
-RUN cd ${MODELS_DIR} \ 
+    && mv ./ORYZAv3_lin.zip ${MODELS_TMP}/ \
+    # DSSAT
+    && cd ${MODELS_DIR} \ 
     && git clone ${MODELS_DSSAT_GITHUB_URL} \
     && cd ${MODELS_DIR}/${MODELS_DSSAT_GITHUB} \
     && mkdir build \
