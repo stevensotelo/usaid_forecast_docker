@@ -1,5 +1,4 @@
 FROM debian:buster
-#FROM buildpack-deps:buster
 
 LABEL maintainer="stevenbetancurt@hotmail.com"
 

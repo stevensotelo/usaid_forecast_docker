@@ -1,5 +1,4 @@
 FROM debian:buster
-#FROM buildpack-deps:buster
 
 LABEL maintainer="stevenbetancurt@hotmail.com"
 
@@ -67,3 +66,4 @@ RUN cd ${MODELS_DIR} \
 # docker run -it --rm -v D:/CIAT/Code/USAID/usaid_forecast_docker/forecast_process/workdir:/forecast/workdir stevensotelo/aclimate_process:latest /bin/bash
 
 # https://github.com/DSSAT/dssat-csm-os
+# https://academiccommons.columbia.edu/doi/10.7916/D8G44WJ6

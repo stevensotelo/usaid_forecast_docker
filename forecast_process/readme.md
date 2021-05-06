@@ -18,7 +18,6 @@ docker run -it --rm -v D:/my_folder/workdir:/forecast/workdir stevensotelo/aclim
 
 ### Test
 
-cd /forecast/test
-
 oryza /forecast/test/oryza
-dssat B DSSBatch.v47
+
+dssat /forecast/test/dssat B DSSBatch.v47
