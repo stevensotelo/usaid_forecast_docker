@@ -16,7 +16,13 @@ ENV MODELS_DSSAT_MODEL=dssat-csm
 ENV MODELS_DSSAT_GITHUB=dssat-csm-os
 ENV MODELS_DSSAT_GITHUB_URL=https://github.com/DSSAT/dssat-csm-os
 ENV MODELS_DSSAT_DIR=${MODELS_DIR}/${MODELS_DSSAT_MODEL}
+ENV MODELS_CPT_MODEL=CPT
+ENV MODELS_CPT_VERSION=15.5.10
+ENV MODELS_CPT_SOURCE=${MODELS_CPT_MODEL}.${MODELS_CPT_VERSION}.tar.gz
+ENV MODELS_CPT_DIR=${MODELS_DIR}/${MODELS_CPT_MODEL}
 ENV PATH="${MODELS_DIR}:${PATH}"
+ENV CPT_BIN_DIR=${MODELS_CPT_DIR}/${MODELS_CPT_VERSION}/bin
+ENV PATH="${CPT_BIN_DIR}:${PATH}"
 
 # Install dependencies
 RUN apt-get update \
@@ -38,7 +44,7 @@ RUN apt-get update \
     && mkdir ${MODELS_WORKDIR} \
     && mkdir ${MODELS_TMP} 
 
-# Configuring models
+    # Oryza
 RUN cd ${MODELS_DIR} \
     && unzip ./ORYZAv3_lin.zip \
     && mv ./Linux ./${MODELS_ORYZA_MODEL} \
@@ -58,7 +64,16 @@ RUN cd ${MODELS_DIR} \
     && mv ${MODELS_DIR}/DSSATPRO.L47 ${MODELS_DSSAT_DIR}/DSSATPRO.L47 \
     && chmod +x ${MODELS_DSSAT_DIR}/dscsm047 \
     && cd ${MODELS_DIR} \
-    && mv ${MODELS_DIR}/${MODELS_DSSAT_GITHUB} ${MODELS_TMP}/${MODELS_DSSAT_GITHUB}
+    && mv ${MODELS_DIR}/${MODELS_DSSAT_GITHUB} ${MODELS_TMP}/${MODELS_DSSAT_GITHUB} \
+    # CPT
+    && cd ${MODELS_DIR} \ 
+    && tar xzvf ${MODELS_CPT_SOURCE} \
+    && cd ${MODELS_CPT_DIR}/${MODELS_CPT_VERSION} \
+    && make \
+    && make  install \
+    && make deepclean \
+    && cd ${MODELS_DIR} \
+    && mv ${MODELS_DIR}/${MODELS_CPT_SOURCE} ${MODELS_TMP}/ 
 
 # docker build -t stevensotelo/aclimate_process:latest .
 # docker tag xx stevensotelo/aclimate_process:latest

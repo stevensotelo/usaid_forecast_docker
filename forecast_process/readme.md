@@ -13,15 +13,18 @@ The models which are inside of this repostory are:
 
 
 ### Install
-
-    docker pull stevensotelo/aclimate_process:latest
+``` bash
+docker pull stevensotelo/aclimate_process:latest
+```
 
 ### Run
-
-    docker run -it --rm -v D:/my_folder/workdir:/forecast/workdir stevensotelo/aclimate_process:latest /bin/bash
+``` bash
+docker run -it --rm -v D:/my_folder/workdir:/forecast/workdir stevensotelo/aclimate_process:latest /bin/bash
+```
 
 ### Test
+``` bash
+oryza /forecast/test/oryza
 
-    oryza /forecast/test/oryza
-
-    dssat /forecast/test/dssat B DSSBatch.v47
+dssat /forecast/test/dssat B DSSBatch.v47
+```
