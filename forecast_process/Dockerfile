@@ -20,9 +20,12 @@ ENV MODELS_CPT_MODEL=CPT
 ENV MODELS_CPT_VERSION=15.5.10
 ENV MODELS_CPT_SOURCE=${MODELS_CPT_MODEL}.${MODELS_CPT_VERSION}.tar.gz
 ENV MODELS_CPT_DIR=${MODELS_DIR}/${MODELS_CPT_MODEL}
-ENV PATH="${MODELS_DIR}:${PATH}"
 ENV CPT_BIN_DIR=${MODELS_CPT_DIR}/${MODELS_CPT_VERSION}/bin
+ENV SCRIPTS_DIR=/forecast/scripts
+ENV SCRIPTS_CODE=https://github.com/CIAT-DAPA/usaid_procesos_interfaz.git
+ENV PATH="${MODELS_DIR}:${PATH}"
 ENV PATH="${CPT_BIN_DIR}:${PATH}"
+
 
 # Install dependencies
 RUN apt-get update \
@@ -35,11 +38,23 @@ RUN apt-get update \
         cmake \
         gfortran \
         git \
+        wget \
     && apt-key adv --keyserver keys.gnupg.net --recv-key 'E19F5F87128899B192B1A2C2AD5F960A256A04AF' \
     && add-apt-repository 'deb http://cloud.r-project.org/bin/linux/debian buster-cran35/' \
+    && wget https://packages.microsoft.com/config/debian/10/packages-microsoft-prod.deb -O packages-microsoft-prod.deb \
+    && dpkg -i packages-microsoft-prod.deb \
+    && rm packages-microsoft-prod.deb \
     && apt-get update \
     && apt-get install -y \
         r-base \
+        dotnet-runtime-2.1 \
+        gdal-bin \
+        proj-bin \
+        libgdal-dev \
+        libproj-dev \
+        libcurl4-openssl-dev \
+        libssl-dev \
+        libxml2-dev \
     && rm -rf /var/lib/apt/lists/* \
     && mkdir ${MODELS_WORKDIR} \
     && mkdir ${MODELS_TMP} 
@@ -73,12 +88,17 @@ RUN cd ${MODELS_DIR} \
     && make  install \
     && make deepclean \
     && cd ${MODELS_DIR} \
-    && mv ${MODELS_DIR}/${MODELS_CPT_SOURCE} ${MODELS_TMP}/ 
+    && mv ${MODELS_DIR}/${MODELS_CPT_SOURCE} ${MODELS_TMP}/ \
+    # Scripts
+    && mkdir ${SCRIPTS_DIR} \    
+    && cd ${SCRIPTS_DIR} \ 
+    && git clone ${SCRIPTS_CODE} \
+    && Rscript ${MODELS_DIR}/imports.R \
+    && mv ${MODELS_DIR}/imports.R ${MODELS_TMP}/ \
+    && mv ${MODELS_DIR}/pkgs.rds ${MODELS_TMP}/ 
+
 
 # docker build -t stevensotelo/aclimate_process:latest .
 # docker tag xx stevensotelo/aclimate_process:latest
 
 # docker run -it --rm -v D:/CIAT/Code/USAID/usaid_forecast_docker/forecast_process/workdir:/forecast/workdir stevensotelo/aclimate_process:latest /bin/bash
-
-# https://github.com/DSSAT/dssat-csm-os
-# https://academiccommons.columbia.edu/doi/10.7916/D8G44WJ6

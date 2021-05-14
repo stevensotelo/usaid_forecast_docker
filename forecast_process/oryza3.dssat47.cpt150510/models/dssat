@@ -1,4 +1,0 @@
-#!/bin/bash
-
-cd $1
-$MODELS_DSSAT_DIR/dscsm047 $2 $3
