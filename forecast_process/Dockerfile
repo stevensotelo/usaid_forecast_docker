@@ -39,15 +39,14 @@ RUN apt-get update \
         gfortran \
         git \
         wget \
-    && apt-key adv --keyserver keys.gnupg.net --recv-key 'E19F5F87128899B192B1A2C2AD5F960A256A04AF' \
-    && add-apt-repository 'deb http://cloud.r-project.org/bin/linux/debian buster-cran35/' \
-    && wget https://packages.microsoft.com/config/debian/10/packages-microsoft-prod.deb -O packages-microsoft-prod.deb \
-    && dpkg -i packages-microsoft-prod.deb \
-    && rm packages-microsoft-prod.deb \
+    && wget https://download.visualstudio.microsoft.com/download/pr/647f8505-3bf0-48c5-ac0f-3839be6816d7/d0c2762ded5a1ded3c79b1e495e43b7c/dotnet-sdk-2.2.203-linux-x64.tar.gz \
+    && mkdir ~/dotnet-2.2-203 \
+    && tar -xvf dotnet-sdk-2.2.203-linux-x64.tar.gz -C ~/dotnet-2.2-203 \
+    && ln -s ~/dotnet-2.2-203/dotnet /usr/bin/dotnet \
+    && rm dotnet-sdk-2.2.203-linux-x64.tar.gz \
     && apt-get update \
     && apt-get install -y \
         r-base \
-        dotnet-runtime-2.1 \
         gdal-bin \
         proj-bin \
         libgdal-dev \
