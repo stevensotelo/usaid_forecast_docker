@@ -57,6 +57,7 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/* \
     && mkdir ${MODELS_WORKDIR} \
     && mkdir ${MODELS_TMP} 
+    
 
     # Oryza
 RUN cd ${MODELS_DIR} \
