@@ -1,3 +1,4 @@
 *.dev.*
 */dev
 /forecast_process/workdir/
+/database/backup/
