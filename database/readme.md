@@ -22,5 +22,7 @@ then use:
 
 ``` bash
 mongorestore --db forecast_db --username forecast_user --password 'your_password2' --authenticationDatabase admin /backup/forecast_db/
+
+mongorestore --db forecast_db --username forecast_admin  --password your_passowrd  --authenticationDatabase admin /backup/forecast_db/
 ```
 And the data will be restore. You can use a Mongo client like Studio 3T to connect with the database.
