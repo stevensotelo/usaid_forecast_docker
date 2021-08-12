@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+    aclimate_db:
+
+        image: stevensotelo/aclimate_db:latest
+
+        env_file:
+            ./database/.env
+        volumes:
+            - ./database/backup:/backup
+        ports:
+            - 27017:27017
+
+    aclimate_process:
+        
+        image: stevensotelo/aclimate_process:latest
+
+        volumes: 
+            - ./forecast_process/workdir:/forecast/workdir
