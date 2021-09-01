@@ -21,12 +21,13 @@ ENV MODELS_CPT_VERSION=15.5.10
 ENV MODELS_CPT_SOURCE=${MODELS_CPT_MODEL}.${MODELS_CPT_VERSION}.tar.gz
 ENV MODELS_CPT_DIR=${MODELS_DIR}/${MODELS_CPT_MODEL}
 ENV CPT_BIN_DIR=${MODELS_CPT_DIR}/${MODELS_CPT_VERSION}/bin
-ENV SCRIPTS_VERSION=1.7
+ENV SCRIPTS_VERSION=1.8
 ENV SCRIPTS_DIR=/forecast/usaid_procesos_interfaz
 ENV SCRIPTS_NAME=usaid_procesos_interfaz
 ENV SCRIPTS_CODE=https://github.com/CIAT-DAPA/usaid_procesos_interfaz/releases/download/v${SCRIPTS_VERSION}/${SCRIPTS_NAME}.zip
 ENV PATH="${MODELS_DIR}:${PATH}"
 ENV PATH="${CPT_BIN_DIR}:${PATH}"
+ENV N_CORES=2
 
 
 # Install dependencies
@@ -105,4 +106,4 @@ RUN cd ${MODELS_DIR} \
 # docker build -t stevensotelo/aclimate_process:latest .
 # docker tag 9eae21770617 stevensotelo/aclimate_process:latest
 
-# docker run -it --rm -v D:/CIAT/Code/USAID/usaid_forecast_docker/forecast_process/workdir:/forecast/workdir stevensotelo/aclimate_process:latest /bin/bash
+# docker run -it --rm -e N_CORES=10 -v D:/CIAT/Code/USAID/usaid_forecast_docker/forecast_process/workdir:/forecast/workdir stevensotelo/aclimate_process:latest /bin/bash
