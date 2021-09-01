@@ -103,6 +103,6 @@ RUN cd ${MODELS_DIR} \
 
 
 # docker build -t stevensotelo/aclimate_process:latest .
-# docker tag xx stevensotelo/aclimate_process:latest
+# docker tag 9eae21770617 stevensotelo/aclimate_process:latest
 
 # docker run -it --rm -v D:/CIAT/Code/USAID/usaid_forecast_docker/forecast_process/workdir:/forecast/workdir stevensotelo/aclimate_process:latest /bin/bash
