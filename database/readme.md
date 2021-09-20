@@ -55,7 +55,7 @@ Yo can generate a backup of the database with the following commands
 ``` bash
 docker exec -it aclimate_db /bin/bash
 
-mongodump --username=user --password="secret" --out=/backup/aclimate
+mongodump --username=mongoadmin --password="secret" --out=/backup/aclimate --authenticationDatabase admin
 ```
 
 ### Restore backup
@@ -64,5 +64,5 @@ Yo can restore a backup of the database with the following commands
 ``` bash
 docker exec -it aclimate_db /bin/bash
 
-mongorestore --username=mongoadmin --password="secret" /backup/aclimate
+mongorestore --username=mongoadmin --password="secret" /backup/aclimate --authenticationDatabase admin
 ```
