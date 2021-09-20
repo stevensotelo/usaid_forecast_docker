@@ -1,4 +1,4 @@
-# FAUNO Database Image
+# Aclimate Database Image
 This folder contain the files which allow to create a Docker image for
 the database of the aclimate platform. The image is based on Mongo 4.2 image.
 
