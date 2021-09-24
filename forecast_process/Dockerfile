@@ -103,7 +103,8 @@ RUN cd ${MODELS_DIR} \
     && mv ${MODELS_DIR}/pkgs.rds ${MODELS_TMP}/ 
 
 
-# docker build -t stevensotelo/aclimate_process:1.8 .
-# docker tag 0a1002a8a03d stevensotelo/aclimate_process:1.8
+# docker build -t stevensotelo/aclimate_process:latest .
+# docker tag 0a1002a8a03d stevensotelo/aclimate_process:latest
 
+# docker run -it --rm -v D:/CIAT/Code/USAID/usaid_forecast_docker/forecast_process/workdir:/forecast/workdir stevensotelo/aclimate_process:latest /bin/bash 
 # docker run -it --rm -e N_CORES=10 -v D:/CIAT/Code/USAID/usaid_forecast_docker/forecast_process/workdir:/forecast/workdir stevensotelo/aclimate_process:latest /bin/bash
