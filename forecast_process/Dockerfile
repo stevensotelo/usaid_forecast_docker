@@ -28,10 +28,11 @@ ENV SCRIPTS_CODE=https://github.com/CIAT-DAPA/usaid_procesos_interfaz/releases/d
 ENV PATH="${MODELS_DIR}:${PATH}"
 ENV PATH="${CPT_BIN_DIR}:${PATH}"
 ENV N_CORES=2
-
+ENV DISPLAY :0
 
 # Install dependencies
-RUN apt-get update \
+RUN dpkg --add-architecture i386 \
+    && apt-get update \
     && apt-get install -y \
         vim \
         unzip \
@@ -41,7 +42,9 @@ RUN apt-get update \
         cmake \
         gfortran \
         git \
-        wget \
+        wget \        
+        wine \
+        wine32 \
     && wget https://download.visualstudio.microsoft.com/download/pr/647f8505-3bf0-48c5-ac0f-3839be6816d7/d0c2762ded5a1ded3c79b1e495e43b7c/dotnet-sdk-2.2.203-linux-x64.tar.gz \
     && mkdir ~/dotnet-2.2-203 \
     && tar -xvf dotnet-sdk-2.2.203-linux-x64.tar.gz -C ~/dotnet-2.2-203 \
@@ -64,10 +67,14 @@ RUN apt-get update \
 
     # Oryza
 RUN cd ${MODELS_DIR} \
-    && unzip ./ORYZAv3_lin.zip \
-    && mv ./Linux ./${MODELS_ORYZA_MODEL} \
+    && mkdir ${MODELS_ORYZA_MODEL} \
+    #&& unzip ./ORYZAv3_lin.zip \
+    && unzip ./ORYZAv3_win.zip \
+    #&& mv ./Linux ./${MODELS_ORYZA_MODEL} \
+    && cp ./ORYZA3.exe ./${MODELS_ORYZA_MODEL}/ \
     && chmod +x ${MODELS_DIR}/oryza \
     && mv ./ORYZAv3_lin.zip ${MODELS_TMP}/ \
+    && mv ./ORYZAv3_win.zip ${MODELS_TMP}/ \
     # DSSAT
     && cd ${MODELS_DIR} \ 
     && git clone ${MODELS_DSSAT_GITHUB_URL} \
@@ -107,4 +114,5 @@ RUN cd ${MODELS_DIR} \
 # docker tag 0a1002a8a03d stevensotelo/aclimate_process:latest
 
 # docker run -it --rm -v D:/CIAT/Code/USAID/usaid_forecast_docker/forecast_process/workdir:/forecast/workdir stevensotelo/aclimate_process:latest /bin/bash 
-# docker run -it --rm -e N_CORES=10 -v D:/CIAT/Code/USAID/usaid_forecast_docker/forecast_process/workdir:/forecast/workdir stevensotelo/aclimate_process:latest /bin/bash
+# docker run -it --rm -e N_CORES=2 -v D:/CIAT/Code/USAID/usaid_forecast_docker/forecast_process/workdir:/forecast/workdir stevensotelo/aclimate_process:latest /bin/bash
+# docker run -it --rm -e N_CORES=5 --cpus="5" --mount type=bind,source=/opt/aclimate/1.Data/forecast/202110,destination=/forecast/workdir stevensotelo/aclimate_process:latest /bin/bash

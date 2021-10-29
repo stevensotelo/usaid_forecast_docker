@@ -1,7 +1,8 @@
 #!/bin/bash
 
 cp $MODELS_ORYZA_DIR/ORYZA3.exe $1/
-chmod +x $1/ORYZA3.exe
+#chmod +x $1/ORYZA3.exe
 cd $1
-./ORYZA3.exe
+#./ORYZA3.exe
+wine ORYZA3.exe
 rm $1/ORYZA3.exe
